@@ -1,0 +1,39 @@
+# TradingConsolidatorSystem
+Trading Consolidator System
+############################## This is small demo application for consolidated Market books####################
+
+Requriment : Build and serve consolidated market book for all Trading equities
+
+Description:
+Equities can be traded on multiple exchanges. You can subscribe to market data feed from each
+exchange to track the book for a security. We want to build a consolidated book that merges the per-
+exchange books.
+There are two types of market feeds
+
+1.       Top of the book. Each message from the exchange has SYMBOL, BEST_BID_PRICE,
+BEST_BID_SIZE, BEST_OFFER_PRICE, BEST_OFFER_SIZE
+2.       Order based book. Messages can be
+a.       NEW_ORDER: SYMBOL, LIMIT_PRICE, SIDE (BUY/SELL), QUANTITY, ORDER_ID
+
+b.       CANCEL_ORDER: ORDER_ID
+c.       MODIFY_ORDER: ORDER_ID, NEW_QUANTITY (modifications allow changing the quantity
+only)
+Consume the market data feed (top-of-the-book style and order-based-book style) from multiple
+exchanges, and build a consolidated book per symbol such that
+Level 0: Bid Size, Bid Price, Offer Price, Offer Size
+Level 1: Bid Size, Bid Price, Offer Price, Offer Size
+…
+Such that Level 0 is the BEST (highest Bid price, lowest offer price), Level 1 is the next best, and so on.
+The Size at each level is the sum of the sizes at all the exchanges at that price.
+Serve the top 5 levels of the consolidated book. There are many readers – all simultaneously requiring
+the top 5 levels of the consolidated book by symbol.
+
+
+Assumptions : While devloping this demo i have assumed that both incoming feeds will have comma separated data and feed format will be  text files.
+ 
+ 
+How to Run : Run the Junit Based TestProcessors class to see the result
+if you want to see the result in the format as metnioned below , please uncomment the main method of TestProcessors and run it. 
+
+Level 0: Bid Size, Bid Price, Offer Price, Offer Size
+Level 1: Bid Size, Bid Price, Offer Price, Offer Size
